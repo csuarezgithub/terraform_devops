@@ -9,7 +9,56 @@ In stage 1 of this advanced demo you will:
 
 This is the starting point .. the common wordpress configuration which you will evolve over the coming demo stages.
 
-# STAGE 1A - Login to an AWS Account  
+# STAGE 1A - Login to an AWS Account with terraform.
+
+Primero debemos logearnos a aws con la cuenta iamadmin
+
+En caso del siguiente error.
+
+❯ docker-compose -f deploy/docker-compose.yml run --rm terraform plan
+Creating deploy_terraform_run ... done
+
+Error: error using credentials to get account ID: error calling sts:GetCallerIdentity: ExpiredToken: The security token included in the request is expired
+	status code: 403, request id: 4423ded9-bc97-4897-ba17-fe7fe8c7894d
+
+
+ERROR: 1
+❯ aws-vault exec iamadmin --duration=12h
+aws-vault: error: exec: aws-vault sessions should be nested with care, unset $AWS_VAULT to force
+
+
+Se debe realizar el siguiente comando.
+```
+unset AWS_VAULT
+```
+
+Luego correr el comando para autenticar con AWS.
+
+```
+aws-vault exec iamadmin --duration=12h
+```
+
+Terraform
+
+1.-Ejecutamos comando para dar formato al codigo
+
+```
+docker-compose -f deploy/docker-compose.yml run --rm terraform fmt
+```
+
+2.-Comando para validar el coodigo.
+
+```
+docker-compose -f deploy/docker-compose.yml run --rm terraform validate
+```
+
+3.- Comando para un predeploy y revisar los cambios.
+
+```
+docker-compose -f deploy/docker-compose.yml run --rm terraform plan
+```
+
+
 
 Login to an AWS account using a user with admin privileges and ensure your region is set to `us-east-1` `N. Virginia`
 
