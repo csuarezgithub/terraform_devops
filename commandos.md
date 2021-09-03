@@ -57,7 +57,16 @@ docker-compose -f deploy/docker-compose.yml run --rm terraform validate
 ```
 docker-compose -f deploy/docker-compose.yml run --rm terraform plan
 ```
+4.- Comando para ejecutar el deploy
 
+```
+docker-compose -f deploy/docker-compose.yml run --rm terraform apply
+```
+5.- Comando para destruir el deploy
+
+```
+docker-compose -f deploy/docker-compose.yml run --rm terraform destroy
+```
 
 
 Login to an AWS account using a user with admin privileges and ensure your region is set to `us-east-1` `N. Virginia`
